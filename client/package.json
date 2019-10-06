@@ -1,5 +1,5 @@
 {
-  "name": "movie_app",
+  "name": "DevCircle",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,6 +17,7 @@
     "popper.js": "^1.15.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
+    "vuejs-datepicker": "^1.6.2",
     "vuelidate": "^0.7.4",
     "vuetify": "^2.0.19",
     "vuex": "^3.0.1"

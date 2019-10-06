@@ -1,13 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import parcelModule from '../Store/modules/parcelModule/index'
-import userModule from '../Store/modules/userModule/index'
+import profileModule from './modules/profileModule'
+import userModule from '../Store/modules/userModule'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: [
-    parcelModule,
+  modules: {
+    profileModule,
     userModule
-  ]
+  }
 });

@@ -1,4 +1,7 @@
 export default {
     isAuthenticated: false,
-    user: {}
+    user: null,
+    loading: false,
+    disabled: false,
+    msg: ""
 }

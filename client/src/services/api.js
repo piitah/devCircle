@@ -1,11 +1,17 @@
 import axios from 'axios'
-import { getUserToken } from '../../auth/getToken'
+// import getUserToken from '../../auth/getToken'
 
+let token;
+if (window.localStorage.getItem('user_token') !== null) {
+    token = window.localStorage.getItem('user_token')
+} else {
+    token = "no token found"
+}
 export default () => {
     return axios.create({
-        baseURL: `https://sendit-it.herokuapp.com/`,
-        header: {
-            "Authorization": "Bearer Token" + getUserToken,
+        baseURL: `http://localhost:3030/`,
+        headers: {
+            "Authorization": token,
             "Accept": "application/json",
             "Content-type": "application/json"
         }

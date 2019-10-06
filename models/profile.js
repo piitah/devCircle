@@ -26,6 +26,12 @@ const profileSchema = new Schema({
         type: String,
         required: true
     },
+    bio: {
+        type: String
+    },
+    github: {
+        type: String
+    },
     skills: {
         type: [String],
         required: true

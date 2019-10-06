@@ -4,12 +4,14 @@ exports.postProfile = async (req, res) => {
     // Get fields
     const profileFields = {
     };
-    if (req.body._id) profileFields.userId = req.body._id;
+    profileFields.userId = req.user._id;
     if (req.body.handle) profileFields.handle = req.body.handle;
     if (req.body.company) profileFields.company = req.body.company;
     if (req.body.website) profileFields.website = req.body.website;
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.status) profileFields.status = req.body.status;
+    if (req.body.bio) profileFields.bio = req.body.bio;
+    if (req.body.github) profileFields.github = req.body.github
     if (typeof req.body.skills !== 'undefined') {
         profileFields.skills = req.body.skills.split(',');
     }
@@ -22,12 +24,12 @@ exports.postProfile = async (req, res) => {
     if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
 
-    await Profile.findOne({ userId: req.body._id }).then(profile => {
+    await Profile.findOne({ userId: req.user._id }).then(profile => {
         console.log(profile)
         if (profile) {
             // Update
             Profile.findOneAndUpdate(
-                { userId: req.body._id },
+                { userId: req.user._id },
                 { $set: profileFields },
                 { new: true }
             ).then(profile => res.json(profile));
@@ -55,7 +57,7 @@ exports.getProfile = async (req, res) => {
 
 exports.getProfileById = async (req, res) => {
     await Profile.findOne({ userId: req.params.id })
-        .populate('userId', ['firstname', 'lastname'])
+        .populate('userId', ['name'])
         .then(profile => {
             try {
                 res.status(200).send(profile)
@@ -69,7 +71,7 @@ exports.getProfileById = async (req, res) => {
 }
 
 exports.deleteProfile = async (req, res) => {
-    await Profile.findByIdAndDelete({ userId: req.body._id })
+    await Profile.findByIdAndDelete({ userId: req.user._id })
         .then(() => {
             res.status(200).send("successfull")
         })
@@ -120,7 +122,7 @@ exports.Education = (req, res) => {
 }
 
 exports.deleteEducationById = async (req, res) => {
-    await Profile.findOne({ userId: req.body._id })
+    await Profile.findOne({ userId: req.user._id })
         .then(profile => {
             let removeIndex = profile.education.map(item => {
                 return item._id

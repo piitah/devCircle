@@ -18,8 +18,7 @@ exports.SignUp = async (req, res) => {
             if (!user) {
                 try {
                     const newUser = new UserModel.User({
-                        firstname: req.body.firstname,
-                        lastname: req.body.lastname,
+                        name: req.body.name,
                         email: req.body.email,
                         password: hashedPassword
                     })
@@ -28,7 +27,7 @@ exports.SignUp = async (req, res) => {
                             res.status(400).send(err)
                         }
                         res.status(200).send({
-                            status: user.email + "registered successfully"
+                            status: user.email + " registered successfully"
                         })
                     })
                 } catch (err) {
@@ -67,7 +66,6 @@ exports.loginIn = async (req, res) => {
 
                     return res.status(200).send({
                         token: token,
-                        user: user,
                         message: "login succesful"
                     })
                 } catch (err) {
